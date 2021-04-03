@@ -30,3 +30,4 @@ deploy:
   provider: script
   cleanup: false
   script: curl -F package:${DEB_NAME} https://${FURYGEM_TOKEN}@push.fury.io/${FURYGEM_NAME}
+  
