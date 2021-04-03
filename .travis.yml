@@ -1,6 +1,7 @@
 os: linux
 dist: focal
 arch: amd64
+virt: vm
 language: shell
 branches:
   only:
@@ -23,7 +24,7 @@ script:
     dsc_file=$(echo "$res" | grep .dsc | grep -o '[^ ]*$') && \
     sudo sbuild --arch=${DEB_ARCH} -c ${DEB_DISTRO}-${DEB_ARCH}-sbuild \
       -d ${DEB_DISTRO} ../${dsc_file} && \
-    DEB_NAME=$(find ../ -name "*.deb")
+    export DEB_NAME=$(find ../ -name "*.deb")
 
 deploy:
   provider: script
