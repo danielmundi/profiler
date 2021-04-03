@@ -1,8 +1,10 @@
-if: branch = deb
 os: linux
 dist: focal
 arch: amd64
 language: shell
+branches:
+  only:
+   - deb
 env:
   jobs:
     - DEB_ARCH: armhf
