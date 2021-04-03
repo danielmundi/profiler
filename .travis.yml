@@ -6,9 +6,8 @@ branches:
   only:
    - deb
 env:
-  jobs:
-    - DEB_ARCH: armhf
-    - DEB_DISTRO: buster
+    DEB_ARCH=armhf
+    DEB_DISTRO=buster
 addons:
   apt:
     packages:
@@ -18,11 +17,11 @@ addons:
       - schroot
       - debootstrap
 script:
-  - sbuild-createchroot --arch=${DEB_ARCH} ${DEB_DISTRO} \
+  - sudo sbuild-createchroot --arch=${DEB_ARCH} ${DEB_DISTRO} \
       /srv/chroot/${DEB_DISTRO}-${DEB_ARCH}-sbuild http://deb.debian.org/debian && \
     res=$(dpkg-source -b ./) && \
     dsc_file=$(echo "$res" | grep .dsc | grep -o '[^ ]*$') && \
-    sbuild --arch=${DEB_ARCH} -c ${DEB_DISTRO}-${DEB_ARCH}-sbuild \
+    sudo sbuild --arch=${DEB_ARCH} -c ${DEB_DISTRO}-${DEB_ARCH}-sbuild \
       -d ${DEB_DISTRO} ../${dsc_file} && \
     DEB_NAME=$(find ../ -name "*.deb")
 
@@ -30,4 +29,3 @@ deploy:
   provider: script
   cleanup: false
   script: curl -F package:${DEB_NAME} https://${FURYGEM_TOKEN}@push.fury.io/${FURYGEM_NAME}
-  
