@@ -14,5 +14,3 @@ dsc_file=$(echo "$res" | grep .dsc | grep -o '[^ ]*$')
 echo "Build package"
 sudo sbuild --arch=${DEB_ARCH} -c ${DEB_DISTRO}-${DEB_ARCH}-sbuild \
     -d ${DEB_DISTRO} ../${dsc_file}
-
-export DEB_NAME=$(find ../ -name "*.deb")

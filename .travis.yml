@@ -23,10 +23,10 @@ script:
 
 before-deploy:
   - echo ${DEB_NAME}
-  
+
 deploy:
   provider: script
   cleanup: false
-  script: curl -F package:${DEB_NAME} https://${FURYGEM_TOKEN}@push.fury.io/${FURYGEM_NAME}
+  script: export DEB_NAME=$(find ../ -name "*.deb") && curl -F package:${DEB_NAME} https://${FURYGEM_TOKEN}@push.fury.io/${FURYGEM_NAME}
   on:
     branch: deb
