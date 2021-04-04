@@ -19,14 +19,11 @@ addons:
       - debootstrap
       - qemu-user-static
 script:
-  - sudo ./.travis.build.sh
-
-before-deploy:
-  - echo ${DEB_NAME}
+  - sudo ./travis/travis-build.sh
 
 deploy:
   provider: script
-  cleanup: false
-  script: export DEB_NAME=$(find ../ -name "*.deb") && curl -F package:${DEB_NAME} https://${FURYGEM_TOKEN}@push.fury.io/${FURYGEM_NAME}
+  skip_cleanup: true
+  script: ./travis/travis-deploy.sh
   on:
     branch: deb
