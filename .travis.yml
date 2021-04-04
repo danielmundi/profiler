@@ -17,9 +17,11 @@ addons:
       - sbuild
       - schroot
       - debootstrap
+      - qemu-user-static
 script:
+  - echo $(whoami)
   - sudo ./.travis.build.sh
-  
+
 after-script:
   - cat /srv/chroot/buster-armhf-sbuild/debootstrap/debootstrap.log
 
