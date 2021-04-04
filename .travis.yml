@@ -19,13 +19,14 @@ addons:
       - debootstrap
       - qemu-user-static
 script:
-  - echo $(whoami)
   - sudo ./.travis.build.sh
 
-after-script:
-  - cat /srv/chroot/buster-armhf-sbuild/debootstrap/debootstrap.log
-
+before-deploy:
+  - echo ${DEB_NAME}
+  
 deploy:
   provider: script
   cleanup: false
   script: curl -F package:${DEB_NAME} https://${FURYGEM_TOKEN}@push.fury.io/${FURYGEM_NAME}
+  on:
+    branch: deb
